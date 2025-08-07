@@ -18,6 +18,9 @@ export default {
 			}
 		},
 		extend: {
+			gridTemplateColumns: {
+				'15': 'repeat(15, minmax(0, 1fr))',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -51,6 +54,18 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				status: {
+					available: 'hsl(var(--status-available))',
+					occupied: 'hsl(var(--status-occupied))',
+					warning: 'hsl(var(--status-warning))',
+					neutral: 'hsl(var(--status-neutral))',
+					inactive: 'hsl(var(--status-inactive))'
+				},
+				bay: {
+					loading: 'hsl(var(--loading-bay))',
+					buffer: 'hsl(var(--buffer-bay))',
+					text: 'hsl(var(--bay-text))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',

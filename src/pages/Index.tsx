@@ -1,11 +1,86 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect } from 'react';
+import { TruckBay } from '../components/TruckBay';
+import { BaySection } from '../components/BaySection';
+import { useResponsiveSize } from '../hooks/useResponsiveSize';
 
 const Index = () => {
+  const screenSize = useResponsiveSize();
+  
+  // Mock data for trucks
+  const [trucks] = useState(() => 
+    Array.from({ length: 15 }, (_, i) => ({
+      id: i + 1,
+      bayNumber: i + 1,
+      status: Math.random() > 0.7 ? 'occupied' : Math.random() > 0.5 ? 'available' : 'neutral',
+      info: `Vehicle Logistics Pte Ltd`
+    }))
+  );
+
+  // Mock data for loading bay cars
+  const [loadingBayCars] = useState(() =>
+    Array.from({ length: 8 }, (_, i) => ({
+      id: i + 1,
+      status: Math.random() > 0.6 ? 'occupied' : Math.random() > 0.4 ? 'available' : 'neutral'
+    }))
+  );
+
+  // Mock data for buffer bay cars
+  const [bufferBayCars] = useState(() =>
+    Array.from({ length: 8 }, (_, i) => ({
+      id: i + 9,
+      status: Math.random() > 0.5 ? 'available' : Math.random() > 0.3 ? 'occupied' : 'warning'
+    }))
+  );
+
+  // Simulate real-time updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Here you would update the status based on API response
+      // For demo purposes, we'll just log that updates would happen
+      console.log('Status updates would occur here based on API response');
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background text-foreground p-2 lg:p-4 overflow-hidden">
+      <div className="h-screen flex flex-col gap-2 lg:gap-4">
+        {/* Header */}
+        <div className="text-center py-2">
+          <h1 className="text-lg lg:text-2xl font-bold text-foreground">
+            Logistics Management Dashboard
+          </h1>
+        </div>
+
+        {/* Truck Bays Row - 15 columns */}
+        <div className="flex-1 grid grid-cols-15 gap-1 lg:gap-2">
+          {trucks.map((truck) => (
+            <TruckBay
+              key={truck.id}
+              bayNumber={truck.bayNumber}
+              status={truck.status as any}
+              info={truck.info}
+            />
+          ))}
+        </div>
+
+        {/* Loading and Buffer Bays - 2 rows */}
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
+          <BaySection
+            title="Loading Bay"
+            bayType="loading"
+            cars={loadingBayCars as any}
+            screenSize={screenSize}
+          />
+          
+          <BaySection
+            title="Buffer Bay"
+            bayType="buffer"
+            cars={bufferBayCars as any}
+            screenSize={screenSize}
+          />
+        </div>
       </div>
     </div>
   );
