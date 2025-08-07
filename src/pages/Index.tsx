@@ -52,12 +52,6 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground p-2 lg:p-4 overflow-hidden">
       <div className="h-screen flex flex-col gap-2 lg:gap-4">
-        {/* Header */}
-        <div className="text-center py-1">
-          <h1 className="text-lg lg:text-2xl font-bold text-foreground">
-            Logistics Management Dashboard
-          </h1>
-        </div>
 
         {/* Truck Bays Row - 15 columns */}
         <div className="flex-1 grid grid-cols-15 gap-1 lg:gap-2">
