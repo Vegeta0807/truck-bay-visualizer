@@ -16,19 +16,25 @@ const Index = () => {
     }))
   );
 
-  // Mock data for loading bay cars
-  const [loadingBayCars] = useState(() =>
-    Array.from({ length: 8 }, (_, i) => ({
-      id: i + 1,
-      status: Math.random() > 0.6 ? 'occupied' : Math.random() > 0.4 ? 'available' : 'neutral'
+  // Mock data for loading bays (15 bays, one for each truck)
+  const [loadingBays] = useState(() =>
+    Array.from({ length: 15 }, (_, truckIndex) => ({
+      truckId: truckIndex + 1,
+      cars: Array.from({ length: 8 }, (_, carIndex) => ({
+        id: `loading-${truckIndex}-${carIndex}`,
+        status: Math.random() > 0.6 ? 'occupied' : Math.random() > 0.4 ? 'available' : 'neutral'
+      }))
     }))
   );
 
-  // Mock data for buffer bay cars
-  const [bufferBayCars] = useState(() =>
-    Array.from({ length: 8 }, (_, i) => ({
-      id: i + 9,
-      status: Math.random() > 0.5 ? 'available' : Math.random() > 0.3 ? 'occupied' : 'warning'
+  // Mock data for buffer bays (15 bays, one for each truck)
+  const [bufferBays] = useState(() =>
+    Array.from({ length: 15 }, (_, truckIndex) => ({
+      truckId: truckIndex + 1,
+      cars: Array.from({ length: 8 }, (_, carIndex) => ({
+        id: `buffer-${truckIndex}-${carIndex}`,
+        status: Math.random() > 0.5 ? 'available' : Math.random() > 0.3 ? 'occupied' : 'warning'
+      }))
     }))
   );
 
@@ -47,7 +53,7 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground p-2 lg:p-4 overflow-hidden">
       <div className="h-screen flex flex-col gap-2 lg:gap-4">
         {/* Header */}
-        <div className="text-center py-2">
+        <div className="text-center py-1">
           <h1 className="text-lg lg:text-2xl font-bold text-foreground">
             Logistics Management Dashboard
           </h1>
@@ -65,21 +71,30 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Loading and Buffer Bays - 2 rows */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
-          <BaySection
-            title="Loading Bay"
-            bayType="loading"
-            cars={loadingBayCars as any}
-            screenSize={screenSize}
-          />
-          
-          <BaySection
-            title="Buffer Bay"
-            bayType="buffer"
-            cars={bufferBayCars as any}
-            screenSize={screenSize}
-          />
+        {/* Loading Bays Row - 15 columns, one for each truck */}
+        <div className="flex-1 grid grid-cols-15 gap-1 lg:gap-2">
+          {loadingBays.map((bay) => (
+            <BaySection
+              key={`loading-${bay.truckId}`}
+              title={`L${bay.truckId}`}
+              bayType="loading"
+              cars={bay.cars as any}
+              screenSize={screenSize}
+            />
+          ))}
+        </div>
+
+        {/* Buffer Bays Row - 15 columns, one for each truck */}
+        <div className="flex-1 grid grid-cols-15 gap-1 lg:gap-2">
+          {bufferBays.map((bay) => (
+            <BaySection
+              key={`buffer-${bay.truckId}`}
+              title={`B${bay.truckId}`}
+              bayType="buffer"
+              cars={bay.cars as any}
+              screenSize={screenSize}
+            />
+          ))}
         </div>
       </div>
     </div>

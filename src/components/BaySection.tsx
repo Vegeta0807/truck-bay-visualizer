@@ -18,12 +18,12 @@ export const BaySection = ({ title, bayType, cars, screenSize }: BaySectionProps
   const getGridClasses = () => {
     switch (screenSize) {
       case 'small':
-        return 'grid-cols-4 gap-1';
+        return 'grid-cols-2 gap-0.5';
       case 'medium':
-        return 'grid-cols-6 gap-2';
+        return 'grid-cols-4 gap-1';
       case 'large':
       default:
-        return 'grid-cols-8 gap-3';
+        return 'grid-cols-4 gap-1';
     }
   };
 
@@ -40,11 +40,11 @@ export const BaySection = ({ title, bayType, cars, screenSize }: BaySectionProps
   };
 
   return (
-    <div className={`bg-card border-2 ${getBayColor()} rounded-lg p-3 h-full flex flex-col`}>
-      <h3 className="text-bay-text font-semibold text-center mb-2 text-sm lg:text-base">
+    <div className={`bg-card border-2 ${getBayColor()} rounded p-1 lg:p-2 h-full flex flex-col`}>
+      <h3 className="text-bay-text font-semibold text-center mb-1 text-xs lg:text-sm">
         {title}
       </h3>
-      <div className={`grid ${getGridClasses()} flex-1 items-center justify-items-center`}>
+      <div className={`grid ${getGridClasses()} flex-1 items-center justify-items-center content-center`}>
         {cars.map((car) => (
           <CarIndicator
             key={car.id}
