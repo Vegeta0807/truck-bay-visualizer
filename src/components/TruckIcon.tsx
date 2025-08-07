@@ -23,25 +23,29 @@ export const TruckIcon = ({ status, className = "" }: TruckIconProps) => {
 
   return (
     <svg
-      viewBox="0 0 100 60"
+      viewBox="0 0 60 100"
       className={`w-full h-full ${getStatusColor()} ${className}`}
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Truck cab */}
-      <rect x="10" y="20" width="25" height="25" rx="3" />
+      <rect x="17.5" y="10" width="25" height="25" rx="3" />
       
       {/* Truck trailer */}
-      <rect x="35" y="15" width="45" height="30" rx="3" />
+      <rect x="15" y="35" width="30" height="45" rx="3" />
       
       {/* Wheels */}
-      <circle cx="22" cy="50" r="5" className="fill-muted" />
-      <circle cx="47" cy="50" r="5" className="fill-muted" />
-      <circle cx="70" cy="50" r="5" className="fill-muted" />
+      <circle cx="22" cy="85" r="5" className="fill-muted" />
+      <circle cx="38" cy="85" r="5" className="fill-muted" />
+      <circle cx="30" cy="70" r="5" className="fill-muted" />
       
       {/* Details */}
-      <rect x="37" y="18" width="8" height="8" className="fill-background" />
-      <rect x="47" y="18" width="8" height="8" className="fill-background" />
-      <rect x="57" y="18" width="8" height="8" className="fill-background" />
+      <rect x="18" y="37" width="8" height="8" className="fill-background" />
+      <rect x="18" y="47" width="8" height="8" className="fill-background" />
+      <rect x="18" y="57" width="8" height="8" className="fill-background" />
+      
+      <rect x="34" y="37" width="8" height="8" className="fill-background" />
+      <rect x="34" y="47" width="8" height="8" className="fill-background" />
+      <rect x="34" y="57" width="8" height="8" className="fill-background" />
     </svg>
   );
 };

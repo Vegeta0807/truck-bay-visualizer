@@ -25,13 +25,13 @@ export const CarIndicator = ({ status, size, className = "" }: CarIndicatorProps
   const getSizeClasses = () => {
     switch (size) {
       case 'large':
-        return 'w-8 h-6';
+        return 'w-6 h-8';
       case 'medium':
-        return 'w-4 h-3';
+        return 'w-3 h-4';
       case 'small':
         return 'w-2 h-2';
       default:
-        return 'w-6 h-4';
+        return 'w-4 h-6';
     }
   };
 
@@ -56,26 +56,28 @@ export const CarIndicator = ({ status, size, className = "" }: CarIndicatorProps
   // For large size, render detailed car SVG
   return (
     <svg
-      viewBox="0 0 60 40"
+      viewBox="0 0 40 60"
       className={`${getSizeClasses()} ${getStatusColor()} ${className}`}
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Car body */}
-      <rect x="5" y="15" width="50" height="15" rx="2" />
+      <rect x="12.5" y="5" width="15" height="50" rx="2" />
       
       {/* Car hood */}
-      <rect x="10" y="10" width="15" height="10" rx="1" />
+      <rect x="15" y="10" width="10" height="15" rx="1" />
       
       {/* Car roof */}
-      <rect x="25" y="8" width="20" height="12" rx="2" />
+      <rect x="14" y="25" width="12" height="20" rx="2" />
       
       {/* Wheels */}
-      <circle cx="15" cy="32" r="3" className="fill-muted" />
-      <circle cx="45" cy="32" r="3" className="fill-muted" />
+      <circle cx="8" cy="15" r="3" className="fill-muted" />
+      <circle cx="32" cy="15" r="3" className="fill-muted" />
+      <circle cx="8" cy="45" r="3" className="fill-muted" />
+      <circle cx="32" cy="45" r="3" className="fill-muted" />
       
       {/* Windows */}
-      <rect x="27" y="10" width="6" height="6" className="fill-background opacity-70" />
-      <rect x="35" y="10" width="6" height="6" className="fill-background opacity-70" />
+      <rect x="16" y="27" width="6" height="6" className="fill-background opacity-70" />
+      <rect x="16" y="35" width="6" height="6" className="fill-background opacity-70" />
     </svg>
   );
 };
