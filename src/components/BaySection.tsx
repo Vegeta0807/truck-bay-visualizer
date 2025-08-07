@@ -7,51 +7,36 @@ interface BaySectionProps {
     id: number;
     status: 'available' | 'occupied' | 'warning' | 'neutral' | 'inactive';
   }>;
-  screenSize: 'large' | 'medium' | 'small';
+  screenSize: 'xlarge' | 'large' | 'medium' | 'small';
 }
 
 export const BaySection = ({ title, bayType, cars, screenSize }: BaySectionProps) => {
-  const getBayColor = () => {
-    return bayType === 'loading' ? 'border-bay-loading' : 'border-bay-buffer';
-  };
-
-  const getGridClasses = () => {
-    // Always single column, 8 rows for all screen sizes
-    switch (screenSize) {
-      case 'small':
-        return 'grid-cols-1 grid-rows-8 gap-0.5';
-      case 'medium':
-        return 'grid-cols-1 grid-rows-8 gap-1';
-      case 'large':
-      default:
-        return 'grid-cols-1 grid-rows-8 gap-1';
-    }
+  const getBayTypeClass = () => {
+    return bayType === 'loading' ? 'bay-section-loading' : 'bay-section-buffer';
   };
 
   const getCarSize = (): 'large' | 'medium' | 'small' => {
     switch (screenSize) {
       case 'small':
-        return 'small';
+        return 'medium'; // Use medium for mobile to make cars visible
       case 'medium':
-        return 'medium';
+        return 'small'; // Use small size (boxes) for tablets to fit properly
       case 'large':
+        return 'small'; // Use small size for small desktop to fit 15 bays
+      case 'xlarge':
       default:
-        return 'large';
+        return 'medium'; // Use medium for large desktop with comfortable sizing
     }
   };
 
   return (
-    <div className={`bg-card border-2 ${getBayColor()} rounded p-1 lg:p-2 h-full flex flex-col`}>
-      <h3 className="text-bay-text font-semibold text-center mb-1 text-xs lg:text-sm">
-        {title}
-      </h3>
-      <div className={`grid ${getGridClasses()} flex-1 items-center justify-items-center content-center`}>
+    <div className={`bay-section ${getBayTypeClass()}`}>
+      <div className="bay-section-grid">
         {cars.map((car) => (
           <CarIndicator
             key={car.id}
             status={car.status}
             size={getCarSize()}
-            className="transition-all duration-300"
           />
         ))}
       </div>

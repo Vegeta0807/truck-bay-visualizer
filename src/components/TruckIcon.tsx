@@ -4,48 +4,53 @@ interface TruckIconProps {
 }
 
 export const TruckIcon = ({ status, className = "" }: TruckIconProps) => {
-  const getStatusColor = () => {
+  const getStatusClass = () => {
     switch (status) {
       case 'available':
-        return 'fill-status-available';
+        return 'truck-status-available';
       case 'occupied':
-        return 'fill-status-occupied';
+        return 'truck-status-occupied';
       case 'warning':
-        return 'fill-status-warning';
+        return 'truck-status-warning';
       case 'neutral':
-        return 'fill-status-neutral';
+        return 'truck-status-neutral';
       case 'inactive':
-        return 'fill-status-inactive';
+        return 'truck-status-inactive';
       default:
-        return 'fill-status-neutral';
+        return 'truck-status-neutral';
     }
   };
 
   return (
     <svg
-      viewBox="0 0 60 100"
-      className={`w-full h-full ${getStatusColor()} ${className}`}
+      viewBox="0 0 40 60"
+      className={`${getStatusClass()} ${className}`}
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'block', /* Remove inline spacing */
+        margin: 0,
+        padding: 0
+      }}
       xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none" /* Allow stretching to fill container */
     >
-      {/* Truck cab */}
-      <rect x="17.5" y="10" width="25" height="25" rx="3" />
-      
-      {/* Truck trailer */}
-      <rect x="15" y="35" width="30" height="45" rx="3" />
-      
-      {/* Wheels */}
-      <circle cx="22" cy="85" r="5" className="fill-muted" />
-      <circle cx="38" cy="85" r="5" className="fill-muted" />
-      <circle cx="30" cy="70" r="5" className="fill-muted" />
-      
-      {/* Details */}
-      <rect x="18" y="37" width="8" height="8" className="fill-background" />
-      <rect x="18" y="47" width="8" height="8" className="fill-background" />
-      <rect x="18" y="57" width="8" height="8" className="fill-background" />
-      
-      <rect x="34" y="37" width="8" height="8" className="fill-background" />
-      <rect x="34" y="47" width="8" height="8" className="fill-background" />
-      <rect x="34" y="57" width="8" height="8" className="fill-background" />
+      {/* Truck cab (top view) - edge to edge, compact */}
+      <rect x="0" y="0" width="40" height="10" rx="2" />
+
+      {/* Truck trailer (top view) - smaller but still visible */}
+      <rect x="0" y="10" width="40" height="50" rx="3" />
+
+      {/* Front windshield line - centered */}
+      <line
+        x1="5"
+        y1="2"
+        x2="35"
+        y2="2"
+        stroke="var(--background-color)"
+        strokeWidth="2"
+        style={{ opacity: 0.8 }}
+      />
     </svg>
   );
 };

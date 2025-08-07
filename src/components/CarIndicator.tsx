@@ -5,79 +5,107 @@ interface CarIndicatorProps {
 }
 
 export const CarIndicator = ({ status, size, className = "" }: CarIndicatorProps) => {
-  const getStatusColor = () => {
+  const getStatusClass = () => {
     switch (status) {
       case 'available':
-        return 'fill-status-available border-status-available';
+        return 'car-status-available';
       case 'occupied':
-        return 'fill-status-occupied border-status-occupied';
+        return 'car-status-occupied';
       case 'warning':
-        return 'fill-status-warning border-status-warning';
+        return 'car-status-warning';
       case 'neutral':
-        return 'fill-status-neutral border-status-neutral';
+        return 'car-status-neutral';
       case 'inactive':
-        return 'fill-status-inactive border-status-inactive';
+        return 'car-status-inactive';
       default:
-        return 'fill-status-neutral border-status-neutral';
+        return 'car-status-neutral';
     }
   };
 
-  const getSizeClasses = () => {
+  const getSizeClass = () => {
     switch (size) {
       case 'large':
-        return 'w-6 h-8';
+        return 'car-indicator-large';
       case 'medium':
-        return 'w-3 h-4';
+        return 'car-indicator-medium';
       case 'small':
-        return 'w-2 h-2';
+        return 'car-indicator-small';
       default:
-        return 'w-4 h-6';
+        return 'car-indicator-medium';
     }
   };
 
-  // For small size, render as a simple dot
-  if (size === 'small') {
-    return (
-      <div 
-        className={`rounded-full ${getStatusColor()} ${getSizeClasses()} ${className}`}
-      />
-    );
-  }
+  // Render different types based on size for better performance and visibility
+  const renderCarIndicator = () => {
+    const baseClasses = `car-indicator ${getSizeClass()} ${getStatusClass()} ${className}`;
 
-  // For medium size, render as a simple box
-  if (size === 'medium') {
-    return (
-      <div 
-        className={`rounded border-2 ${getStatusColor()} ${getSizeClasses()} ${className}`}
-      />
-    );
-  }
+    if (size === 'small') {
+      // Simple colored box for very small sizes (tablets) - uses status colors
+      return (
+        <div
+          className={`${baseClasses} car-indicator-box`}
+          style={{
+            borderRadius: '2px',
+          }}
+        />
+      );
+    }
 
-  // For large size, render detailed car SVG
-  return (
-    <svg
-      viewBox="0 0 40 60"
-      className={`${getSizeClasses()} ${getStatusColor()} ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Car body */}
-      <rect x="12.5" y="5" width="15" height="50" rx="2" />
-      
-      {/* Car hood */}
-      <rect x="15" y="10" width="10" height="15" rx="1" />
-      
-      {/* Car roof */}
-      <rect x="14" y="25" width="12" height="20" rx="2" />
-      
-      {/* Wheels */}
-      <circle cx="8" cy="15" r="3" className="fill-muted" />
-      <circle cx="32" cy="15" r="3" className="fill-muted" />
-      <circle cx="8" cy="45" r="3" className="fill-muted" />
-      <circle cx="32" cy="45" r="3" className="fill-muted" />
-      
-      {/* Windows */}
-      <rect x="16" y="27" width="6" height="6" className="fill-background opacity-70" />
-      <rect x="16" y="35" width="6" height="6" className="fill-background opacity-70" />
-    </svg>
-  );
+    if (size === 'medium') {
+      // Medium detail car shape - wider and longer
+      return (
+        <svg
+          viewBox="0 0 80 120"
+          className={baseClasses}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Car body - wider and much longer */}
+          <rect x="5" y="5" width="70" height="110" rx="4" />
+          {/* Car hood */}
+          <rect x="10" y="10" width="60" height="25" rx="3" />
+          {/* Wheels */}
+          <circle cx="3" cy="25" r="5" className="svg-muted" />
+          <circle cx="77" cy="25" r="5" className="svg-muted" />
+          <circle cx="3" cy="95" r="5" className="svg-muted" />
+          <circle cx="77" cy="95" r="5" className="svg-muted" />
+          {/* Windows - wider and more */}
+          <rect x="15" y="40" width="50" height="15" className="svg-background" />
+          <rect x="15" y="60" width="50" height="15" className="svg-background" />
+          <rect x="15" y="80" width="50" height="15" className="svg-background" />
+        </svg>
+      );
+    }
+
+    // Large size - detailed car SVG - very wide and long
+    return (
+      <svg
+        viewBox="0 0 100 150"
+        className={baseClasses}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Car body - very wide and much longer */}
+        <rect x="5" y="5" width="90" height="140" rx="5" />
+
+        {/* Car hood */}
+        <rect x="10" y="10" width="80" height="30" rx="3" />
+
+        {/* Car roof */}
+        <rect x="8" y="40" width="84" height="50" rx="4" />
+
+        {/* Wheels */}
+        <circle cx="3" cy="30" r="6" className="svg-muted" />
+        <circle cx="97" cy="30" r="6" className="svg-muted" />
+        <circle cx="3" cy="120" r="6" className="svg-muted" />
+        <circle cx="97" cy="120" r="6" className="svg-muted" />
+
+        {/* Windows - much wider and more */}
+        <rect x="15" y="50" width="70" height="12" className="svg-background" />
+        <rect x="15" y="70" width="70" height="12" className="svg-background" />
+        <rect x="15" y="90" width="70" height="12" className="svg-background" />
+        <rect x="15" y="110" width="70" height="10" className="svg-background" />
+      </svg>
+    );
+  };
+
+  return renderCarIndicator();
 };

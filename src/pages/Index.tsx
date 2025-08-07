@@ -49,13 +49,57 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <div className="min-h-screen bg-background text-foreground p-2 lg:p-4 overflow-hidden">
-      <div className="h-screen flex flex-col gap-2 lg:gap-4">
+  const getColumnsToShow = () => {
+    switch (screenSize) {
+      case 'small':
+        return 15; // Mobile: show all, but in single column (scrollable)
+      case 'medium':
+        return 15; // Tablet: show all 15 columns with very small sizing
+      case 'large':
+        return 15; // Small Desktop: show all 15 columns with smaller sizing
+      case 'xlarge':
+      default:
+        return 15; // Large Desktop: show all 15 columns with normal sizing
+    }
+  };
 
-        {/* Truck Bays Row - 15 columns */}
-        <div className="flex-1 grid grid-cols-15 gap-1 lg:gap-2">
-          {trucks.map((truck) => (
+  const getTruckRowClasses = () => {
+    switch (screenSize) {
+      case 'small':
+        return 'truck-row bay-row bay-row-mobile';
+      case 'medium':
+        return 'truck-row bay-row bay-row-tablet';
+      case 'large':
+        return 'truck-row bay-row bay-row-desktop-small'; // New class for smaller desktop
+      case 'xlarge':
+      default:
+        return 'truck-row bay-row bay-row-desktop';
+    }
+  };
+
+  const getBayRowClasses = () => {
+    switch (screenSize) {
+      case 'small':
+        return 'bay-row-section bay-row bay-row-mobile';
+      case 'medium':
+        return 'bay-row-section bay-row bay-row-tablet';
+      case 'large':
+        return 'bay-row-section bay-row bay-row-desktop-small';
+      case 'xlarge':
+      default:
+        return 'bay-row-section bay-row bay-row-desktop';
+    }
+  };
+
+  const columnsToShow = getColumnsToShow();
+
+  return (
+    <div className="app-container">
+      <div className="app-content">
+
+        {/* Truck Bays Row - Gets more space */}
+        <div className={getTruckRowClasses()}>
+          {trucks.slice(0, columnsToShow).map((truck) => (
             <TruckBay
               key={truck.id}
               bayNumber={truck.bayNumber}
@@ -65,9 +109,9 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Loading Bays Row - 15 columns, one for each truck */}
-        <div className="flex-1 grid grid-cols-15 gap-1 lg:gap-2">
-          {loadingBays.map((bay) => (
+        {/* Loading Bays Row */}
+        <div className={getBayRowClasses()}>
+          {loadingBays.slice(0, columnsToShow).map((bay) => (
             <BaySection
               key={`loading-${bay.truckId}`}
               title={`L${bay.truckId}`}
@@ -78,9 +122,9 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Buffer Bays Row - 15 columns, one for each truck */}
-        <div className="flex-1 grid grid-cols-15 gap-1 lg:gap-2">
-          {bufferBays.map((bay) => (
+        {/* Buffer Bays Row */}
+        <div className={getBayRowClasses()}>
+          {bufferBays.slice(0, columnsToShow).map((bay) => (
             <BaySection
               key={`buffer-${bay.truckId}`}
               title={`B${bay.truckId}`}
