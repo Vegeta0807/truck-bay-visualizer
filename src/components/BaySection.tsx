@@ -16,14 +16,15 @@ export const BaySection = ({ title, bayType, cars, screenSize }: BaySectionProps
   };
 
   const getGridClasses = () => {
+    // Always single column, 8 rows for all screen sizes
     switch (screenSize) {
       case 'small':
-        return 'grid-cols-2 gap-0.5';
+        return 'grid-cols-1 grid-rows-8 gap-0.5';
       case 'medium':
-        return 'grid-cols-4 gap-1';
+        return 'grid-cols-1 grid-rows-8 gap-1';
       case 'large':
       default:
-        return 'grid-cols-4 gap-1';
+        return 'grid-cols-1 grid-rows-8 gap-1';
     }
   };
 

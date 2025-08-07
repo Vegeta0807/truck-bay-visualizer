@@ -21,6 +21,9 @@ export default {
 			gridTemplateColumns: {
 				'15': 'repeat(15, minmax(0, 1fr))',
 			},
+			gridTemplateRows: {
+				'8': 'repeat(8, minmax(0, 1fr))',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
