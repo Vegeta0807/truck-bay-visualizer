@@ -34,7 +34,7 @@ const data = {
       load_plan_number: "B_08_Aug_2025_02",
       bay_is_vacant: false,
       assigned_by: "Anjali Singh",
-      assigned_at: "2025-08-08T09:45:00.000Z", // RECENT - GREEN
+      assigned_at: "2025-08-08T10:45:00.000Z", // RECENT - GREEN
       updated_at: "2025-08-08T10:15:00.000Z",
       vin_list: [
         { vin_number: "MAT855064SLE44444", vin_status: "TRANSPORTER_INSPECTION_PENDING" },
@@ -730,21 +730,7 @@ const Index = () => {
   //   return () => clearInterval(interval);
   // }, []);
 
-  const getColumnsToShow = () => {
-    switch (screenSize) {
-      case 'small':
-        return 15; // Mobile: show all, but in single column (scrollable)
-      case 'medium':
-        return 15; // Tablet: show all 15 columns with very small sizing
-      case 'large':
-        return 15; // Small Desktop: show all 15 columns with smaller sizing
-      case 'xlarge':
-        return 15; // Large Desktop: show all 15 columns with normal sizing
-      case '4k':
-      default:
-        return 15; // 4K: show all 15 columns with large cars
-    }
-  };
+
 
   const getTruckRowClasses = () => {
     switch (screenSize) {
@@ -758,7 +744,7 @@ const Index = () => {
         return 'truck-row bay-row bay-row-desktop';
       case '4k':
       default:
-        return 'truck-row bay-row bay-row-desktop'; // Use same classes as xlarge for 4K
+        return 'truck-row bay-row bay-row-desktop'; 
     }
   };
 
@@ -774,11 +760,11 @@ const Index = () => {
         return 'bay-row-section bay-row bay-row-desktop';
       case '4k':
       default:
-        return 'bay-row-section bay-row bay-row-desktop'; // Use same classes as xlarge for 4K
+        return 'bay-row-section bay-row bay-row-desktop'; 
     }
   };
 
-  const columnsToShow = getColumnsToShow();
+
 
   return (
     <div className="app-container">
@@ -786,7 +772,7 @@ const Index = () => {
 
         {/* Truck Bays Row - Gets more space */}
         <div className={getTruckRowClasses()}>
-          {trucks.slice(0, columnsToShow).map((truck) => (
+          {trucks.slice(0, 15).map((truck) => (
             <TruckBay
               key={truck.id}
               bayNumber={truck.bayNumber}
@@ -801,7 +787,7 @@ const Index = () => {
 
         {/* Loading Bays Row */}
         <div className={getBayRowClasses()}>
-          {loadingBays.slice(0, columnsToShow).map((bay) => (
+          {loadingBays.slice(0, 15).map((bay) => (
             <BaySection
               key={`loading-${bay.truckId}`}
               title={`L${bay.truckId}`}
@@ -814,7 +800,7 @@ const Index = () => {
 
         {/* Buffer Bays Row */}
         <div className={getBayRowClasses()}>
-          {bufferBays.slice(0, columnsToShow).map((bay) => (
+          {bufferBays.slice(0, 15).map((bay) => (
             <BaySection
               key={`buffer-${bay.truckId}`}
               title={`B${bay.truckId}`}
