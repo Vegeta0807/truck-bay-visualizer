@@ -7,7 +7,7 @@ interface BaySectionProps {
     id: number;
     status: 'available' | 'occupied' | 'warning' | 'neutral' | 'inactive';
   }>;
-  screenSize: 'xlarge' | 'large' | 'medium' | 'small';
+  screenSize: '4k' | 'xlarge' | 'large' | 'medium' | 'small';
 }
 
 export const BaySection = ({ title, bayType, cars, screenSize }: BaySectionProps) => {
@@ -22,10 +22,12 @@ export const BaySection = ({ title, bayType, cars, screenSize }: BaySectionProps
       case 'medium':
         return 'small'; // Use small size (boxes) for tablets to fit properly
       case 'large':
-        return 'small'; // Use small size for small desktop to fit 15 bays
+        return 'medium'; // Use medium SVG cars for small desktop (1024px-1439px)
       case 'xlarge':
+        return 'large'; // Use large detailed SVG cars for large desktop (1440px+)
+      case '4k':
       default:
-        return 'medium'; // Use medium for large desktop with comfortable sizing
+        return 'large'; // Use large detailed SVG cars for 4K displays
     }
   };
 

@@ -4,9 +4,12 @@ interface TruckBayProps {
   bayNumber: number;
   status: 'available' | 'occupied' | 'warning' | 'neutral' | 'inactive';
   info?: string;
+  trailerNumber?: string | null;
+  transporterName?: string | null;
+  screenSize?: '4k' | 'xlarge' | 'large' | 'medium' | 'small';
 }
 
-export const TruckBay = ({ bayNumber, status, info }: TruckBayProps) => {
+export const TruckBay = ({ bayNumber, status, info, trailerNumber, transporterName, screenSize }: TruckBayProps) => {
   return (
     <div className="truck-bay">
       {/* Bay info label */}
@@ -23,7 +26,12 @@ export const TruckBay = ({ bayNumber, status, info }: TruckBayProps) => {
 
       {/* Truck icon container */}
       <div className="truck-icon-container">
-        <TruckIcon status={status} />
+        <TruckIcon
+          status={status}
+          trailerNumber={trailerNumber}
+          transporterName={transporterName}
+          screenSize={screenSize}
+        />
       </div>
     </div>
   );
