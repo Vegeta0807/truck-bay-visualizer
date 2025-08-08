@@ -218,7 +218,7 @@ body {
 /* Truck Bay Info Text */
 .truck-bay-info {
   font-size: 0.625rem; /* Smaller font */
-  color: var(--muted-foreground-color);
+  color: var(--foreground-color);
   margin-bottom: 0; /* Remove margin to eliminate gap */
   text-align: center;
   padding: 0 0.125rem; /* Reduced padding */

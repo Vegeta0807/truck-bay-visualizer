@@ -694,7 +694,8 @@ const Index = () => {
       status: getTruckStatus(loadingPad.assigned_at),
       info: loadingPad.bay_no,
       trailerNumber: loadingPad.trailer_number,
-      transporterName: loadingPad.transporter_name
+      transporterName: loadingPad.transporter_name,
+      assignedAt: loadingPad.assigned_at
     }))
   );
 
@@ -781,6 +782,7 @@ const Index = () => {
               trailerNumber={truck.trailerNumber}
               transporterName={truck.transporterName}
               screenSize={screenSize}
+              assignedAt={truck.assignedAt}
             />
           ))}
         </div>
